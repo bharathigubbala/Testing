@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Word Combinations</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+		function getCombinations(word) {
+  var combinations = [''];
+  for (var i = 0; i < word.length; i++) {
+    var newCombinations = [];
+    for (var j = 0; j < combinations.length; j++) {
+      for (var k = 0; k < word.length; k++) {
+        newCombinations.push(combinations[j] + word.charAt(k));
+      }
+    }
+    combinations = newCombinations;
+  }
+  return combinations;
+}
+
+
+		function showCombinations() {
+			var word = document.getElementById("word-input").value;
+			var combinations = getCombinations(word);
+			var output = "";
+			for (var i = 0; i < combinations.length; i++) {
+				output += combinations[i] + "<br>";
+			}
+			document.getElementById("combinations-output").innerHTML = output;
+		}
+	</script>
+</head>
+<body>
+	<h1>Word Combinations</h1>
+	<p>Enter a word to see all possible combinations:</p>
+	<input type="text" id="word-input">
+	<button onclick="showCombinations()">Show Combinations</button>
+	<p>Combinations:</p>
+	<div id="combinations-output"></div>
+</body>
+</html>

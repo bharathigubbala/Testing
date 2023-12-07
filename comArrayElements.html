@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Common Elements in 2 arrays</title>
+  </head>
+  <body>
+    <h1> Common Array Elements</h1>
+    <p>Enter two arrays separated by commas:</p>
+    <input type="text" id="array1" placeholder="Enter first array"><br><br>
+    <input type="text" id="array2" placeholder="Enter second array"><br><br>
+    <button onclick="findCommon()">Find Common Elements</button>
+    <script>
+      function findCommon() {
+        const arrayA = document.getElementById("array1").value.split(",");
+        const arrayB = document.getElementById("array2").value.split(",");
+        const matchingElements = [];
+
+  for (let i = 0; i < arrayA.length; i++) {
+    for (let j = 0; j < arrayB.length; j++) {
+      if (arrayA[i] === arrayB[j]) {
+        matchingElements.push(arrayA[i]);
+       document.write("Matched Elements:",matchingElements);
+      }
+    }
+  }
+ }
+    </script>
+  </body>
+</html>
