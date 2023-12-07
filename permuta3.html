@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Combinations and Permutations</title>
+	<meta charset="UTF-8">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="result"></div>
+	<script>
+
+			let input_word = prompt("enter a word");
+			let result = [];
+
+			// Generate all possible combinations
+			for (let i = 0, n = input_word.length; i < n; i++) {
+				for (let j = i + 1; j < n; j++) {
+					result.push(input_word[i] + input_word[j]);
+					result.push(input_word[j] + input_word[i]);
+					for (let k = j + 1; k < n && k <= j + 2; k++) {
+						result.push(input_word[i] + input_word[j] + input_word[k]);
+						result.push(input_word[j] + input_word[i] + input_word[k]);
+						result.push(input_word[k] + input_word[i] + input_word[j]);
+						result.push(input_word[j] + input_word[k] + input_word[i]);
+
+					}
+					for (let k = j - 1; k > i && k >= j - 2 && input_word[k] !== input_word[i]; k--) {
+						result.push(input_word[i] + input_word[j] + input_word[k]);
+						result.push(input_word[j] + input_word[i] + input_word[k]);
+					}
+					// for (let k = i - 1; k >= 0 && k >= i - 1; k--) {
+					// 	result.push(input_word[i] + input_word[j] + input_word[k]);
+					// 	result.push(input_word[j] + input_word[i] + input_word[k]);
+					// }
+				}
+			}
+
+			// Generate all possible permutations
+			let n = input_word.length;
+			let combos = (1 << n);
+			for(let i = 1; i < combos; i++) {
+				let curr_combination = "";
+				for(let j = 0; j < n; j++) {
+					curr_combination += (i & (1 << j)) ? input_word[j] : "";
+				}
+				let perms = [];
+				for(let j = 0, n = curr_combination.length; j < n; j++) {
+					let prefix = curr_combination[j];
+					let suffix = curr_combination.substring(0, j) + curr_combination.substring(j + 1);
+					permute(prefix, suffix, perms);
+				}
+				perms.forEach(item => result.push(item));
+			}
+
+			// Display the result
+			let result_div = document.getElementById("result");
+			result_div.innerHTML = "Possible combinations and permutations for '" + input_word + "':<br>" + [...result].join("<br>") + "<br>Total combinations and permutations: " + result.length;
+		
+
+		function permute(prefix, suffix, result) {
+			(suffix.length == 0) ? result.push(prefix) : suffix.split("").forEach((char, index) => permute(prefix + char, suffix.slice(0, index) + suffix.slice(index + 1), result));
+		}
+	</script>
+</body>
+</html>
